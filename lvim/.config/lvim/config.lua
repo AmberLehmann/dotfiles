@@ -45,6 +45,40 @@ lvim.autocommands = {
     -- },
   -- },
 }
+local colors = {
+  color2 = "#0f1419",
+  color3 = "#85DFF8",
+  color4 = "#df71e6",
+  color5 = "#14191f",
+  color13 = "#ffcfe8",
+  color10 = "#ff9aef",
+  color8 = "#df71e6",
+  color9 = "#ffcfe8",
+}
+lvim.builtin.lualine.options.theme = {
+  normal = {
+    c = { fg = colors.color9, bg = colors.color2 },
+    a = { fg = colors.color2, bg = colors.color10, gui = "bold" },
+    b = { fg = colors.color4, bg = colors.color5 },
+  },
+  insert = {
+    a = { fg = colors.color2, bg = colors.color13, gui = "bold" },
+    b = { fg = colors.color4, bg = colors.color5 },
+  },
+  visual = {
+    a = { fg = colors.color2, bg = colors.color3, gui = "bold" },
+    b = { fg = colors.color4, bg = colors.color5 },
+  },
+  replace = {
+    a = { fg = colors.color2, bg = colors.color8, gui = "bold" },
+    b = { fg = colors.color4, bg = colors.color5 },
+  },
+  inactive = {
+    c = { fg = colors.color4, bg = colors.color2 },
+    a = { fg = colors.color4, bg = colors.color5, gui = "bold" },
+    b = { fg = colors.color4, bg = colors.color5 },
+  },
+}
 
 
 lvim.plugins = {
@@ -83,10 +117,10 @@ lvim.plugins = {
       alpha = 0.45, -- amount of dimming
       -- we try to get the foreground from the highlight groups or fallback color
       color = { "Normal", "#ffffff" },
-      term_bg = "#000010", -- if guibg=NONE, this will be used to calculate text color
-      inactive = false, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
+      term_bg = "#24283b", -- if guibg=NONE, this will be used to calculate text color
+      inactive = true -- when true, other windows will be fully dimmed (unless they contain the same buffer)
       },
-      context = 15, -- amount of lines we will try to show around the current line
+      context = 25, -- amount of lines we will try to show around the current line
       treesitter = true, -- use treesitter when available for the filetype
       -- treesitter is used to automatically expand the visible text,
       -- but you can further control the types of nodes that should always be fully expanded
@@ -103,10 +137,18 @@ lvim.plugins = {
   {'ThePrimeagen/vim-be-good'},
   {'eandrju/cellular-automaton.nvim'},
   {'rust-lang/rust.vim'},
+  {
+    "lervag/vimtex",
+     lazy = false,     -- we don't want to lazy load VimTeX
+  -- tag = "v2.15", -- uncomment to pin to a specific release
+     init = function()
+    -- VimTeX configuration goes here, e.g.
+    -- vim.g.vimtex_view_method = "zathura"
+    vim.g.vimtex_view_general_viewer = 'okular'
+    vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
+  end
+  },
 }
-
--- vim.keymap.set("n", "<leader>m", "<cmd>CellularAutomaton make_it_rain<CR>")
-
 lvim.builtin.which_key.mappings["Fml"] = {
   "<cmd>CellularAutomaton make_it_rain<CR>", "n"
 }
